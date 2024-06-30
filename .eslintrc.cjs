@@ -16,8 +16,9 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react",  'react-refresh', "@typescript-eslint"],
   rules: {   
+    'react/react-in-jsx-scope': 'off',
     "react-refresh/only-export-components": [   
      "warn",     
     { allowConstantExport: true },   
@@ -25,5 +26,10 @@ module.exports = {
       "no-unused-vars": "warn",
       "react/prop-types": "off",   
   
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };

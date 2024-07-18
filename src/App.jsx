@@ -1,33 +1,46 @@
-import styled from "styled-components"
-import GlobalStyles from "./styles/GlobalStyles"
-import Button from "./ui/Button"
-import Input from "./ui/Input"
-
-const H1 = styled.h1`
-  font-size: 30px;
-  font-weight: 600;
-  background-color: yellow;
-` 
+import styled from 'styled-components';
+import GlobalStyles from './styles/GlobalStyles';
+import Button from './ui/Button';
+import Input from './ui/Input';
+import Heading from './ui/Heading';
+import Row from './ui/Row';
 
 const StyledApp = styled.div`
-  background-color: orangered;
   padding: 20px;
-`
+`;
 
 function App() {
-
   return (
     <>
-    <GlobalStyles />
-    <StyledApp>
-      <H1>Hello World</H1>
-      <Button onClick={() => alert('Check In')}>Check In</Button>
-      <Button onClick={() => alert('Check Out')}>Check Out</Button>
-      <Input type="number" placeholder="Number of guests"/>
-      <Input type="number" placeholder="Number of guests"/>
-    </StyledApp>
-    </>
-  )
-} 
+      <GlobalStyles />
+      <StyledApp>
+        <Row>
+          <Row type="horizontal">
+            <Heading as="h1">Hello World</Heading>
+            <div>
+              <Heading as="h2">Check In and Out</Heading>
+              <Button onClick={() => alert('Check In')}>Check In</Button>
+              <Button
+                variation="secondary"
+                size="small"
+                onClick={() => alert('Check Out')}
+              >
+                Check Out
+              </Button>
+            </div>
+          </Row>
 
-export default App
+          <Row>
+            <Heading as="h3">Form</Heading>
+            <form>
+              <Input type="number" placeholder="Number of guests" />
+              <Input type="number" placeholder="Number of guests" />
+            </form>
+          </Row>
+        </Row>
+      </StyledApp>
+    </>
+  );
+}
+
+export default App;

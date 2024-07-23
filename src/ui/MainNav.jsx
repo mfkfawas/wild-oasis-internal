@@ -14,6 +14,7 @@ const NavList = styled.ul`
   gap: 0.8rem;
 `;
 
+// This is how we can style third party components using styled-components
 const StyledNavLink = styled(NavLink)`
   &:link,
   &:visited {

@@ -18,8 +18,8 @@ function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 * 1000,
-        // staleTime: 0,
+        // staleTime: 60 * 1000,
+        staleTime: 0,
       },
     },
   });
@@ -48,6 +48,7 @@ function App() {
 
       <Toaster
         position="top-center"
+        // reverseOrder={true}
         gutter={12}
         containerStyle={{ margin: '8px' }}
         toastOptions={{

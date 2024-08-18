@@ -1,6 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 
 import Input from '../../ui/Input';
 import Form from '../../ui/Form';
@@ -9,10 +7,10 @@ import FileInput from '../../ui/FileInput';
 import Textarea from '../../ui/Textarea';
 import FormRow from '../../ui/FormRow';
 
-import { createEditCabin } from '../../services/apiCabins';
+import { useCreateCabin } from './useCreateCabin';
+import { useEditCabin } from './useEditCabin';
 
 function CreateCabinForm({ cabinToEdit = {} }) {
-  console.log('cabinToEdit', cabinToEdit);
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
@@ -32,37 +30,40 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     // when editing if user doesnt changed the pic we will get the old image path or if user edited it fill be a image file(not string)
     const image = typeof data.image === 'string' ? data.image : data.image[0];
 
-    if (isEditSession)
-      editCabin({ newCabinData: { ...data, image }, id: editId });
-    else createCabin({ ...data, image });
+    if (isEditSession) {
+      console.log('test');
+      editCabin(
+        { newCabinData: { ...data, image }, id: editId },
+        {
+          onSuccess: data => {
+            console.log(data);
+
+            reset();
+          },
+        }
+      );
+    } else
+      createCabin(
+        { ...data, image },
+        // we can pass an onSuccess here too, we will get the result of mutattion fn as input
+        //  here. The main reason that we need onSuccess here too bcoz of the reset fn. The reset()
+        // is coming from react-hook-form an not available at the custom hook we created(useCreateCabin).
+        {
+          onSuccess: data => {
+            console.log(data);
+
+            reset();
+          },
+        }
+      );
   };
 
   const onError = error => {
     // console.log(error);
   };
 
-  const queryClient = useQueryClient();
-
-  const { mutate: createCabin, isLoading: isCreating } = useMutation({
-    mutationFn: createEditCabin,
-    onSuccess: () => {
-      toast.success('New cabin successfully created');
-      queryClient.invalidateQueries({ queryKey: ['cabins'] });
-      reset();
-    },
-    onError: err => toast.error(err.message),
-  });
-
-  const { mutate: editCabin, isLoading: isEditing } = useMutation({
-    //react-query only allow us to pass a single parameter to the mutationFn
-    mutationFn: ({ newCabinData, id }) => createEditCabin(newCabinData, id),
-    onSuccess: () => {
-      toast.success('New cabin successfully edited');
-      queryClient.invalidateQueries({ queryKey: ['cabins'] });
-      reset();
-    },
-    onError: err => toast.error(err.message),
-  });
+  const { createCabin, isCreating } = useCreateCabin();
+  const { editCabin, isEditing } = useEditCabin();
 
   const isWorking = isCreating || isEditing;
 

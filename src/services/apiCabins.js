@@ -19,6 +19,7 @@ export async function createEditCabin(newCabin, id) {
   // https://tifmndrcdtekpijptmwg.supabase.co/storage/v1/object/public/cabin-images/cabin-006.jpg
 
   // replacing all / because that otherwise will create new folders in supabase based on that.
+  console.log(newCabin.image.name);
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
     '/',
     ''
@@ -37,6 +38,7 @@ export async function createEditCabin(newCabin, id) {
   if (id) query = query.update({ ...newCabin, image: imagePath }).eq('id', id);
 
   const { data, error } = await query.select().single();
+  if (hasImagePath) return data;
 
   if (error) {
     console.error(error);

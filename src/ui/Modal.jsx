@@ -1,8 +1,13 @@
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import { HiXMark } from 'react-icons/hi2';
-import { cloneElement, createContext, useContext, useState } from 'react';
-import { set } from 'date-fns';
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -14,6 +19,8 @@ const StyledModal = styled.div`
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+  max-height: 90vh;
+  overflow-y: auto;
 `;
 
 const Overlay = styled.div`
@@ -60,6 +67,19 @@ function Modal({ children }) {
 
   const close = () => setOpenName('');
   const open = setOpenName;
+
+  useEffect(() => {
+    if (openName) {
+      document.documentElement.classList.add('no-scroll');
+    } else {
+      document.documentElement.classList.remove('no-scroll');
+    }
+
+    // Cleanup when the component unmounts
+    return () => {
+      document.documentElement.classList.remove('no-scroll');
+    };
+  }, [openName]);
 
   return (
     <ModalContext.Provider value={{ openName, close, open }}>

@@ -82,6 +82,23 @@ function Modal({ children }) {
     };
   }, [openName]);
 
+  useEffect(() => {
+    const handleEsc = event => {
+      if (event.key === 'Escape') {
+        close(); // Call the close function when Escape is pressed
+      }
+    };
+
+    if (openName) {
+      window.addEventListener('keydown', handleEsc);
+    }
+
+    // Clean up the event listener when the component is unmounted or modal is closed
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [openName]);
+
   return (
     <ModalContext.Provider value={{ openName, close, open }}>
       {children}

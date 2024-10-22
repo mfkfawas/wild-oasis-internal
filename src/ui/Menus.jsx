@@ -97,17 +97,17 @@ function Toggle({ id }) {
     openId === '' || openId !== id ? open(id) : close();
   }
 
-  // useEffect(() => {
-  //   function handleScroll() {
-  //     if (openId) {
-  //       close();
-  //       document.removeEventListener('wheel', handleScroll);
-  //     }
-  //   }
-  //   if (openId) document.addEventListener('wheel', handleScroll);
+  useEffect(() => {
+    function handleScroll() {
+      if (openId) {
+        close();
+        document.removeEventListener('wheel', handleScroll);
+      }
+    }
+    if (openId) document.addEventListener('wheel', handleScroll);
 
-  //   return () => document.removeEventListener('wheel', handleScroll);
-  // }, [openId]);
+    return () => document.removeEventListener('wheel', handleScroll);
+  }, [openId]);
 
   return (
     <StyledToggle onClick={handleClick}>

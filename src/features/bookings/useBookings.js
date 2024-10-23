@@ -13,6 +13,11 @@ export function useBookings() {
       : // : { field: 'totalPrice', value: 5000, method: 'gte' };
         { field: 'status', value: filterValue };
 
+  // SORT
+  const sortByValue = searchParams.get('sortBy') || 'startDate-desc';
+  const [field, direction] = sortByValue.split('-');
+  const sortBy = { field, direction };
+
   // INVALIDATE-QUERY-NOTES
   // 1) By default, queryClient.invalidateQueries({ queryKey: ['cabins'] }) will invalidate ALL cabins with or without parameters, so in general you don't need to worry about additional parameters.
   // 2) With queryClient.invalidateQueries({ queryKey: ['cabins'], {...some params here...} }) you will invalidate ONLY this specific query, but not main cabins
@@ -23,8 +28,8 @@ export function useBookings() {
     data: bookings,
     error,
   } = useQuery({
-    queryKey: ['bookings', filter],
-    queryFn: () => getBookings({ filter }),
+    queryKey: ['bookings', filter, sortBy],
+    queryFn: () => getBookings({ filter, sortBy }),
   });
 
   return { isLoading, error, bookings };

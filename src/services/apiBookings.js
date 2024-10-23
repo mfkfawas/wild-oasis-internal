@@ -1,18 +1,20 @@
 import { getToday } from '../utils/helpers';
 import supabase from './supabase';
 
-export async function getBookings() {
-  const { data, error } = await supabase
+export async function getBookings({ filter, sortBy }) {
+  let query = supabase
     .from('bookings')
     // if we want all columns from cabins and guests
     // .select('*, cabins(*), guests(*)');
     // for specific columns
     .select(
       'id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)'
-    )
-    // filter bookings(status - unconfirmed) and totalPrice > 2000
-    .eq('status', 'unconfirmed')
-    .gte('totalPrice', 2000);
+    );
+  // filter bookings(status - unconfirmed) and totalPrice > 2000
+  // .eq('status', 'unconfirmed')
+  // .gte('totalPrice', 2000);
+
+  const { data, error } = await query;
 
   if (error) {
     console.error(error);

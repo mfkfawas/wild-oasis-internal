@@ -10,7 +10,9 @@ function Bookings() {
         <p>TEST</p>
       </Row>
 
-      <BookingTable />
+      <Row>
+        <BookingTable />
+      </Row>
     </>
   );
 }

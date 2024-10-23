@@ -9,7 +9,10 @@ export async function getBookings() {
     // for specific columns
     .select(
       'id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)'
-    );
+    )
+    // filter bookings(status - unconfirmed) and totalPrice > 2000
+    .eq('status', 'unconfirmed')
+    .gte('totalPrice', 2000);
 
   if (error) {
     console.error(error);

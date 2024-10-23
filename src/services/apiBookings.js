@@ -15,7 +15,8 @@ export async function getBookings({ filter, sortBy }) {
   // .gte('totalPrice', 2000);
 
   // FILTER
-  if (filter !== null) query = query.eq(filter.field, filter.value);
+  if (filter !== null)
+    query = query[filter.method || 'eq'](filter.field, filter.value);
 
   const { data, error } = await query;
 

@@ -14,6 +14,9 @@ export async function getBookings({ filter, sortBy }) {
   // .eq('status', 'unconfirmed')
   // .gte('totalPrice', 2000);
 
+  // FILTER
+  if (filter !== null) query = query.eq(filter.field, filter.value);
+
   const { data, error } = await query;
 
   if (error) {

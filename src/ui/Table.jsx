@@ -93,6 +93,11 @@ function Body({ data, render }) {
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
+// same above body rendered using children(if render prop confuses you use this pattern)
+// function Body({ children }) {
+//   return <StyledBody>{children}</StyledBody>;
+// }
+
 Table.Header = Header;
 Table.Body = Body;
 Table.Row = Row;

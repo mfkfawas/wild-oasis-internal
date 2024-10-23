@@ -28,6 +28,13 @@ function BookingTable() {
           data={bookings}
           render={booking => <BookingRow key={booking.id} booking={booking} />}
         />
+
+        {/* same above render pattern implemented using children.  */}
+        {/* <Table.Body>
+          {bookings.map(booking => (
+            <BookingRow key={booking.id} booking={booking} />
+          ))}
+        </Table.Body> */}
       </Table>
     </Menus>
   );

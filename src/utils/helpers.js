@@ -5,6 +5,13 @@ import { formatDistance, parseISO, differenceInDays } from 'date-fns';
 export const subtractDates = (dateStr1, dateStr2) =>
   differenceInDays(parseISO(String(dateStr1)), parseISO(String(dateStr2)));
 
+/**
+ * Formats the distance between the given ISO date string and now,
+ * adding a suffix like "ago" or "In X minutes" for better readability.
+ *
+ * @param {string} dateStr - The date in ISO format (e.g., "2024-10-22T14:30:00Z") Z refers to UTC.
+ * @returns {string} - Human-readable relative time (e.g., "3 days ago" or "In 5 minutes").
+ */
 export const formatDistanceFromNow = dateStr =>
   formatDistance(parseISO(dateStr), new Date(), {
     addSuffix: true,

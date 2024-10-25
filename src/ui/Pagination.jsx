@@ -67,6 +67,9 @@ function Pagination({ count }) {
 
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === pageCount;
+  const currentPageStart = (currentPage - 1) * PAGE_SIZE + 1;
+  const currentPageLast =
+    currentPage !== pageCount ? currentPage * PAGE_SIZE : count;
 
   function nextPage() {
     setSearchParam(isLastPage ? pageCount : currentPage + 1);
@@ -81,11 +84,8 @@ function Pagination({ count }) {
   return (
     <StyledPagination>
       <P>
-        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{' '}
-        <span>
-          {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
-        </span>{' '}
-        of <span>{count}</span> results
+        Showing <span>{currentPageStart}</span> to{' '}
+        <span>{currentPageLast}</span> of <span>{count}</span> results
       </P>
 
       <Buttons>

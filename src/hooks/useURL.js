@@ -11,7 +11,11 @@ function useURL(field, defaultValue = '') {
     setSearchParams(searchParams);
   }
 
-  return { searchParam, setSearchParam };
+  return {
+    searchParam:
+      typeof defaultValue === 'number' ? Number(searchParam) : searchParam,
+    setSearchParam,
+  };
 }
 
 export default useURL;

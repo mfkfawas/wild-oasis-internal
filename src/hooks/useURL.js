@@ -7,7 +7,7 @@ function useURL(field, defaultValue = '') {
 
   function setSearchParam(value) {
     searchParams.set(field, value);
-    if (searchParams.get('page')) searchParams.set('page', 1);
+    // if (searchParams.get('page')) searchParams.set('page', 1);
     setSearchParams(searchParams);
   }
 

@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 
-// if we are fetching the value of the below array of fields, we need to convert it to number
+// if we are fetching the value of the below arra of fields, we need to convert it to number
 const NUMERIC_FIELDS = ['page'];
 
 // defaultValue is '' bcz in select if we pass '', it will automatcially select the first option. But in others(Filter) we need to explicitly pass the default value as filter is not build using select

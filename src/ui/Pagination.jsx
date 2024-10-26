@@ -1,6 +1,7 @@
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import styled from 'styled-components';
 import useURL from '../hooks/useURL';
+import { PAGE_SIZE } from '../utils/constants';
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -58,8 +59,6 @@ const PaginationButton = styled.button`
   }
 `;
 
-const PAGE_SIZE = 10;
-
 function Pagination({ count }) {
   const { searchParam: currentPage, setSearchParam } = useURL('page', 1);
 
@@ -67,9 +66,8 @@ function Pagination({ count }) {
 
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === pageCount;
-  const currentPageStart = (currentPage - 1) * PAGE_SIZE + 1;
-  const currentPageLast =
-    currentPage !== pageCount ? currentPage * PAGE_SIZE : count;
+  const from = (currentPage - 1) * PAGE_SIZE + 1;
+  const to = currentPage !== pageCount ? currentPage * PAGE_SIZE : count;
 
   function nextPage() {
     setSearchParam(isLastPage ? pageCount : currentPage + 1);
@@ -84,8 +82,8 @@ function Pagination({ count }) {
   return (
     <StyledPagination>
       <P>
-        Showing <span>{currentPageStart}</span> to{' '}
-        <span>{currentPageLast}</span> of <span>{count}</span> results
+        Showing <span>{from}</span> to <span>{to}</span> of <span>{count}</span>{' '}
+        results
       </P>
 
       <Buttons>

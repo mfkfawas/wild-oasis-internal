@@ -9,6 +9,7 @@ import Menus from '../../ui/Menus';
 
 import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';
+import { STATUS_TO_TAG_NAME } from '../../utils/constants';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -53,12 +54,6 @@ function BookingRow({
 }) {
   const navigate = useNavigate();
 
-  const statusToTagName = {
-    unconfirmed: 'blue',
-    'checked-in': 'green',
-    'checked-out': 'silver',
-  };
-
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
@@ -81,7 +76,7 @@ function BookingRow({
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
+      <Tag type={STATUS_TO_TAG_NAME[status]}>{status.replace('-', ' ')}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 

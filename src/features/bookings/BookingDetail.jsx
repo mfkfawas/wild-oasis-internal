@@ -20,7 +20,7 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const { booking, isLoading } = useBooking();
+  const { booking = {}, isLoading } = useBooking();
   const moveBack = useMoveBack();
 
   const { status, id: bookingId } = booking;

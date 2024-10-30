@@ -7,7 +7,7 @@ export function useBookings() {
   const queryClient = useQueryClient();
 
   const { searchParam: sortByValue } = useURL('sortBy', 'startDate-desc');
-  const { searchParam: filterValue } = useURL('filter');
+  const { searchParam: filterValue } = useURL('status');
   const { searchParam: page } = useURL('page');
 
   // FILTER

@@ -9,11 +9,14 @@ import ButtonGroup from '../../ui/ButtonGroup';
 import Button from '../../ui/Button';
 import ButtonText from '../../ui/ButtonText';
 import Spinner from '../../ui/Spinner';
+import Modal from '../../ui/Modal';
+import ConfirmDelete from '../../ui/ConfirmDelete';
 
 import { useMoveBack } from '../../hooks/useMoveBack';
 import { useBooking } from './useBooking';
 import { STATUS_TO_TAG_NAME } from '../../utils/constants';
 import { useCheckOut } from '../check-in-out/useCheckOut';
+import { useDeleteBooking } from './useBookingDelete';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -26,13 +29,14 @@ function BookingDetail() {
   const { booking = {}, isLoading } = useBooking();
   const moveBack = useMoveBack();
   const { checkOut, isCheckingOut } = useCheckOut();
+  const { bookingDelete, isDeleting } = useDeleteBooking();
 
   const { status, id: bookingId } = booking;
 
   if (isLoading) return <Spinner />;
 
   return (
-    <>
+    <Modal>
       <Row type="horizontal">
         <HeadingGroup>
           <Heading as="h1">Booking #{bookingId}</Heading>
@@ -58,11 +62,23 @@ function BookingDetail() {
           </Button>
         )}
 
-        <Button variation="secondary" onClick={moveBack}>
+        <Modal.Open opens="delete">
+          <Button variation="danger">Delete</Button>
+        </Modal.Open>
+
+        <Button variation="danger" onClick={moveBack}>
           Back
         </Button>
       </ButtonGroup>
-    </>
+
+      <Modal.Window name="delete">
+        <ConfirmDelete
+          resourceName="bookings"
+          onConfirm={() => bookingDelete(bookingId, { onSettled: moveBack })}
+          disabled={isDeleting}
+        />
+      </Modal.Window>
+    </Modal>
   );
 }
 

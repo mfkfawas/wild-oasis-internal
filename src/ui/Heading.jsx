@@ -22,7 +22,7 @@ const Heading = styled.h1`
       font-weight: 500;
     `}
 
-  line-height: 5;
+  line-height: 1.5;
 `;
 
 export default Heading;

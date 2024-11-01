@@ -13,6 +13,7 @@ import Spinner from '../../ui/Spinner';
 import { useMoveBack } from '../../hooks/useMoveBack';
 import { useBooking } from './useBooking';
 import { STATUS_TO_TAG_NAME } from '../../utils/constants';
+import { useCheckOut } from '../check-in-out/useCheckOut';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ function BookingDetail() {
   const navigate = useNavigate();
   const { booking = {}, isLoading } = useBooking();
   const moveBack = useMoveBack();
+  const { checkOut, isCheckingOut } = useCheckOut();
 
   const { status, id: bookingId } = booking;
 
@@ -47,6 +49,12 @@ function BookingDetail() {
         {status === 'unconfirmed' && (
           <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
             Check In
+          </Button>
+        )}
+
+        {status === 'checked-in' && (
+          <Button onClick={() => checkOut(bookingId)} disabled={isCheckingOut}>
+            Check Out
           </Button>
         )}
 

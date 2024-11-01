@@ -12,6 +12,8 @@ function useURL(field, defaultValue = '') {
   const searchParam = searchParams.get(field) || defaultValue;
 
   function setSearchParam(value) {
+    if (field === 'status' && searchParams.get('page'))
+      searchParams.set('page', 1);
     searchParams.set(field, value);
     setSearchParams(searchParams);
   }

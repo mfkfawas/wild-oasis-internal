@@ -33,6 +33,8 @@ function LoginForm() {
         <Input
           type="password"
           id="password"
+          // autoComplete="current-password" for current passwords
+          // autoComplete="new-password" for new password fields during registration or password
           autoComplete="current-password"
           value={password}
           onChange={e => setPassword(e.target.value)}

@@ -36,3 +36,20 @@ export const formatCurrency = value =>
     style: 'currency',
     currency: 'USD',
   }).format(value);
+
+// Salla format date(for learning purpose - not the best)
+export const formatDate = date => {
+  const options = {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+
+  const formattedDate = new Date(date).toLocaleDateString('ar-EG', options);
+
+  return formattedDate.split(',')[0];
+};

@@ -17,7 +17,16 @@ function LoginForm() {
 
     if (!email || !password) return;
 
-    login({ email, password });
+    login(
+      { email, password },
+      {
+        // clean up the form after the mutation is done
+        onSettled: () => {
+          setEmail('');
+          setPassword('');
+        },
+      }
+    );
   }
 
   return (

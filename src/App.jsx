@@ -16,6 +16,7 @@ import Login from './pages/Login';
 import PageNotFound from './pages/PageNotFound';
 import Booking from './pages/Booking';
 import Checkin from './pages/Checkin';
+import ProtectedRoute from './ui/ProtectedRoute';
 
 function App() {
   const queryClient = new QueryClient({
@@ -35,7 +36,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* This is called a layout route bcz it doesnt have a path prop */}
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/bookings" element={<Bookings />} />

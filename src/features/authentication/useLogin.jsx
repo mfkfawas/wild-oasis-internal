@@ -11,7 +11,7 @@ export function useLogin() {
   const { mutate: login, isLoading } = useMutation({
     mutationFn: ({ email, password }) => loginApi({ email, password }),
     onSuccess: data => {
-      // manually set the user in the user query cache
+      // manually set the user in the user query cache(why because in the ProtectedRoute we are calling useUser which have the same data as data.user)
       queryClient.setQueryData(['user'], data.user);
       navigate('/dashboard');
     },

@@ -13,7 +13,7 @@ export function useLogin() {
     onSuccess: data => {
       // manually set the user in the user query cache(why because in the ProtectedRoute we are calling useUser which have the same data as data.user)
       queryClient.setQueryData(['user'], data.user);
-      navigate('/dashboard');
+      navigate('/dashboard', { replace: true });
     },
     onError: err => {
       console.error(err);

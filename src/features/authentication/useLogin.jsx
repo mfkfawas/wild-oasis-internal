@@ -26,3 +26,17 @@ export function useLogin() {
 
   return { login, isLoading };
 }
+
+//  setQueryData()
+//  Updates the cache for a specific query by its exact query key.
+//  queryClient.setQueryData(['user', userId], (oldData) => ({
+//    ...oldData,
+//    name: 'Updated Name',
+//  }));
+
+//  setQueriesData():
+//   Updates the cache for multiple queries that match a partial query key.
+//   queryClient.setQueriesData(['user'], (oldData) => ({
+//     ...oldData,
+//     status: 'active',
+//   }));

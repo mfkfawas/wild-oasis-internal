@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import { useUser } from '../features/authentication/useUser';
 import Spinner from './Spinner';
@@ -14,14 +14,14 @@ const FullPage = styled.div`
 `;
 
 export default function ProtectedRoute({ children }) {
-  const navigate = useNavigate();
+  let location = useLocation();
   const { isAuthenticated, isLoading, isFetching } = useUser();
 
   useEffect(() => {
     if (!isAuthenticated && !isLoading && !isFetching) {
-      navigate('/login');
+      return <Navigate to="/login" state={{ from: location }} replace />;
     }
-  }, [isAuthenticated, isLoading, navigate]);
+  }, [isAuthenticated, isLoading, isFetching, location]);
 
   if (isLoading)
     return (

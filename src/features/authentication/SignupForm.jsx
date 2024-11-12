@@ -4,21 +4,29 @@ import Button from '../../ui/Button';
 import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
+import { useSignup } from './useSignup';
 
 // Email regex: /\S+@\S+\.\S+/
 
 function SignupForm() {
+  const { isLoading, signup } = useSignup();
   const {
     register,
     formState: { errors },
     getValues,
     handleSubmit,
+    reset,
   } = useForm();
 
   // react hook form will call this fn each time the form is submitted and each time the validation happens, and since the validation is already
   // happened before then we not need any validation here(cool right?)
-  function onSubmit(data) {
-    console.log(data);
+  function onSubmit({ fullName, email, password }) {
+    signup(
+      { fullName, email, password },
+      {
+        onSettled: reset,
+      }
+    );
   }
 
   return (

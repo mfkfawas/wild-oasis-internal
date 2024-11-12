@@ -5,6 +5,7 @@ export async function signup({ email, password, fullName }) {
     email,
     password,
     options: {
+      // if we want to add more data to the user we can add it here
       data: {
         fullName,
         avatar: '',

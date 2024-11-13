@@ -16,7 +16,16 @@ function SignupForm() {
     getValues,
     handleSubmit,
     reset,
+    watch,
   } = useForm();
+
+  // Watch all fields
+  const formValues = watch();
+
+  // Check if all fields are empty when any field changes
+  const areFieldsEmpty = Object.values(formValues).some(
+    value => value === '' || value == null
+  );
 
   // react hook form will call this fn each time the form is submitted and each time the validation happens, and since the validation is already
   // happened before then we not need any validation here(cool right?)
@@ -24,7 +33,7 @@ function SignupForm() {
     signup(
       { fullName, email, password },
       {
-        onSettled: reset,
+        onSettled: () => reset(),
       }
     );
   }
@@ -36,6 +45,7 @@ function SignupForm() {
           type="text"
           id="fullName"
           {...register('fullName', { required: 'Full name is required' })}
+          disabled={isLoading}
         />
       </FormRow>
 
@@ -47,6 +57,7 @@ function SignupForm() {
             required: 'Email is required',
             pattern: { value: /^\S+@\S+\.\S+$/, message: 'Invalid email' },
           })}
+          disabled={isLoading}
         />
       </FormRow>
 
@@ -64,6 +75,7 @@ function SignupForm() {
               message: 'Password must be at least 8 characters',
             },
           })}
+          disabled={isLoading}
         />
       </FormRow>
 
@@ -76,15 +88,21 @@ function SignupForm() {
             validate: value =>
               value === getValues('password') || 'Passwords must match',
           })}
+          disabled={isLoading}
         />
       </FormRow>
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => reset()}
+          disabled={isLoading}
+        >
           Cancel
         </Button>
-        <Button>Create new user</Button>
+        <Button disabled={isLoading || areFieldsEmpty}>Create new user</Button>
       </FormRow>
     </Form>
   );

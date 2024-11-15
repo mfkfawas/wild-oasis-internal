@@ -102,8 +102,6 @@ button {
   color: grey; /* For text color */
   background-color: #e0e0e0; /* Light grey background for a clearer disabled state */
   opacity: 0.6; /* Optional, to add a faded appearance */
-
-
 }
 
 select:disabled,

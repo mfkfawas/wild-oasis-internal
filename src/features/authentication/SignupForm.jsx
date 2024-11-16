@@ -97,7 +97,7 @@ function SignupForm() {
         <Button
           variation="secondary"
           type="reset"
-          onClick={() => reset()}
+          onClick={reset}
           disabled={isLoading}
         >
           Cancel

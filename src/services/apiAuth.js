@@ -62,7 +62,6 @@ export async function logout() {
 
 export async function updateCurrentUser({ password, fullName, avatar }) {
   //  1 - update the PASSWORD OR FULLNAME(both cannot be updated at the same time as both lives in different forms)
-
   let updateData;
   if (password) updateData = { password };
   if (fullName) updateData = { data: { fullName } };
@@ -76,7 +75,6 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
   if (!avatar) return data;
   //  2 - upload the AVATAR image
   const fileName = `avatar-${data.user.id}.${Date.now().toString(36)}${Math.random().toString(36).substr(2, 9)}`;
-  console.log('🚀 ~ updateCurrentUser ~ fileName:', fileName);
   const { error: storageError } = await supabase.storage
     .from('avatars')
     .upload(fileName, avatar);

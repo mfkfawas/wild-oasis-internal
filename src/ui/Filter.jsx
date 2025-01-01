@@ -47,8 +47,8 @@ function Filter({ filterField, options }) {
         <FilterButton
           key={option.value}
           onClick={() => setSearchParam(option.value)}
-          active={option.value === searchParam}
-          disabled={option.value === searchParam}
+          active={option.value === String(searchParam)}
+          disabled={option.value === String(searchParam)}
         >
           {option.label}
         </FilterButton>

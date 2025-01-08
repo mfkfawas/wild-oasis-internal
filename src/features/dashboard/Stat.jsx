@@ -36,7 +36,7 @@ const Title = styled.h5`
   align-self: end;
   font-size: 1.2rem;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: .4px;
   font-weight: 600;
   color: var(--color-grey-500);
 `;

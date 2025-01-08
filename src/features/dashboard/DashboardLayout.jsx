@@ -34,7 +34,7 @@ export default function DashboardLayout() {
         cabinCount={cabins.length}
       />
       <div></div>
-      <SalesChart />
+      <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
   );
 }

@@ -58,11 +58,13 @@ const fakeData = [
 export default function SalesChart({ bookings, numDays }) {
   const { isDarkMode } = useDarkMode();
 
+  // allDates is an array of all the dates between the start date and the end date
   const allDates = eachDayOfInterval({
     start: subDays(new Date(), numDays - 1),
     end: new Date(),
   });
 
+  // data shape is just as the fakeData
   const data = allDates.map(date => {
     return {
       label: format(date, 'MMM dd'),
@@ -91,7 +93,10 @@ export default function SalesChart({ bookings, numDays }) {
 
   return (
     <StyledSalesChart>
-      <Heading as="h2">Sales</Heading>
+      <Heading as="h2">
+        Sales from {format(allDates.at(0), 'MMM dd yyyy')} to{' '}
+        {format(allDates.at(-1), 'MMM dd yyyy')}
+      </Heading>
 
       {/* Chart */}
       <ResponsiveContainer height={300} width="100%">

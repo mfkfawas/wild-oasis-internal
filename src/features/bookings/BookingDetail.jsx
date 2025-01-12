@@ -11,6 +11,7 @@ import ButtonText from '../../ui/ButtonText';
 import Spinner from '../../ui/Spinner';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
+import Empty from '../../ui/Empty';
 
 import { useMoveBack } from '../../hooks/useMoveBack';
 import { useBooking } from './useBooking';
@@ -32,8 +33,12 @@ function BookingDetail() {
   const { bookingDelete, isDeleting } = useDeleteBooking();
 
   const { status, id: bookingId } = booking;
+  console.log('🚀 ~ BookingDetail ~ booking:', booking);
 
   if (isLoading) return <Spinner />;
+
+  if (Object.keys(booking).length === 0)
+    return <Empty resourceName="booking" />;
 
   return (
     <Modal>

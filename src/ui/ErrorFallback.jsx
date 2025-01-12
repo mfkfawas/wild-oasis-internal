@@ -32,6 +32,8 @@ const Box = styled.div`
     color: var(--color-grey-500);
   }
 `;
+
+// <ErrorBoundary /> is passing these props to the ErrorFallback component
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <>
